@@ -1,0 +1,2417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ChemLife | Chemicals in Daily Life</title>
+
+<meta name="description"
+content="ChemLife - Explore chemicals used in everyday products, their formulas, functions, uses and safety information.">
+
+<style>
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #06b6d4;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #64748b;
+    --border: #e2e8f0;
+
+    --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    --radius: 18px;
+}
+
+body.dark {
+    --bg: #0b1120;
+    --card: #111827;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: #263244;
+
+    --shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(16px);
+
+    border-bottom: 1px solid var(--border);
+}
+
+body.dark .navbar {
+    background: rgba(11,17,32,0.88);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color: white;
+    font-size: 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 26px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.icon-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+    color: var(--text);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 560px;
+
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+
+    gap: 40px;
+
+    padding: 80px 8%;
+
+    background:
+        radial-gradient(circle at 10% 20%, rgba(37,99,235,.12), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(6,182,212,.12), transparent 35%);
+}
+
+.hero-badge {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border-radius: 30px;
+
+    background: rgba(37,99,235,.1);
+    color: var(--primary);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 6vw, 70px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: var(--primary);
+}
+
+.hero p {
+    max-width: 650px;
+
+    font-size: 18px;
+    line-height: 1.7;
+
+    color: var(--muted);
+
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.primary-btn {
+    border: none;
+
+    padding: 14px 22px;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color: white;
+
+    font-weight: 700;
+
+    box-shadow: 0 8px 20px rgba(37,99,235,.25);
+
+    transition: .25s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+}
+
+.secondary-btn {
+    border: 1px solid var(--border);
+
+    padding: 14px 22px;
+
+    border-radius: 12px;
+
+    background: var(--card);
+    color: var(--text);
+
+    font-weight: 700;
+}
+
+/* Hero molecule */
+
+.molecule {
+    position: relative;
+
+    width: 340px;
+    height: 340px;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(37,99,235,.16),
+            transparent 65%
+        );
+
+    animation: float 5s ease-in-out infinite;
+}
+
+.atom {
+    position: absolute;
+
+    width: 70px;
+    height: 70px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: var(--card);
+
+    border: 4px solid var(--primary);
+
+    box-shadow: var(--shadow);
+
+    font-size: 28px;
+}
+
+.atom:nth-child(1) {
+    top: 20px;
+    left: 135px;
+}
+
+.atom:nth-child(2) {
+    bottom: 50px;
+    left: 30px;
+}
+
+.atom:nth-child(3) {
+    bottom: 50px;
+    right: 30px;
+}
+
+.atom:nth-child(4) {
+    top: 135px;
+    left: 135px;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color: white;
+    border: none;
+}
+
+@keyframes float {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section {
+    padding: 80px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: var(--muted);
+}
+
+/* =========================================================
+   DASHBOARD STATS
+========================================================= */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+.stat-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    padding: 25px;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    transition: .3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-area {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    padding: 25px;
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 35px;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+
+    padding: 18px 55px 18px 20px;
+
+    border-radius: 14px;
+
+    border: 1px solid var(--border);
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    outline: none;
+
+    font-size: 16px;
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+}
+
+.search-icon {
+    position: absolute;
+
+    right: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 20px;
+}
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.filters {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 18px;
+}
+
+.filter-btn {
+    border: 1px solid var(--border);
+
+    background: var(--card);
+
+    color: var(--text);
+
+    padding: 9px 15px;
+
+    border-radius: 30px;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
+
+.product-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 22px;
+}
+
+.product-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+
+    transition: .3s;
+
+    animation: appear .5s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-7px);
+}
+
+.product-top {
+    padding: 25px;
+
+    min-height: 130px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37,99,235,.12),
+            rgba(6,182,212,.08)
+        );
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.category {
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    background: rgba(37,99,235,.1);
+
+    color: var(--primary);
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.product-info h3 {
+    margin-bottom: 8px;
+}
+
+.product-info p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin-bottom: 15px;
+}
+
+.formula {
+    font-family: monospace;
+
+    color: var(--success);
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+}
+
+.view-btn {
+    width: 100%;
+
+    border: none;
+
+    padding: 11px;
+
+    border-radius: 10px;
+
+    background: var(--bg);
+
+    color: var(--primary);
+
+    font-weight: 700;
+}
+
+.view-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+.category-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 15px;
+}
+
+.category-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    padding: 25px 15px;
+
+    text-align: center;
+
+    transition: .3s;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+
+    border-color: var(--primary);
+}
+
+.category-card div {
+    font-size: 32px;
+
+    margin-bottom: 10px;
+}
+
+.category-card span {
+    font-weight: 700;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   SAFETY
+========================================================= */
+
+.safety {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(239,68,68,.06),
+            rgba(245,158,11,.06)
+        );
+}
+
+.safety-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 22px;
+}
+
+.safety-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    padding: 25px;
+
+    border-radius: var(--radius);
+}
+
+.safety-card .icon {
+    font-size: 35px;
+
+    margin-bottom: 15px;
+}
+
+.safety-card p {
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    margin-top: 10px;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-box {
+    max-width: 900px;
+
+    margin: auto;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 40px;
+
+    box-shadow: var(--shadow);
+
+    line-height: 1.8;
+}
+
+.about-box p {
+    color: var(--muted);
+
+    margin-bottom: 15px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 45px 8%;
+
+    background: #0f172a;
+
+    color: white;
+
+    text-align: center;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+footer p {
+    color: #94a3b8;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.65);
+
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    width: min(750px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: var(--card);
+
+    border-radius: 22px;
+
+    padding: 30px;
+
+    position: relative;
+
+    animation: modalIn .3s ease;
+}
+
+@keyframes modalIn {
+    from {
+        transform: scale(.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    font-size: 20px;
+}
+
+.detail-header {
+    display: flex;
+
+    gap: 20px;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.detail-icon {
+    width: 90px;
+    height: 90px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 45px;
+
+    border-radius: 20px;
+
+    background: rgba(37,99,235,.1);
+}
+
+.detail-header h2 {
+    font-size: 30px;
+}
+
+.detail-section {
+    padding: 18px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-section h4 {
+    margin-bottom: 8px;
+
+    color: var(--primary);
+}
+
+.detail-section p {
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+/* =========================================================
+   NO RESULTS
+========================================================= */
+
+.no-results {
+    text-align: center;
+
+    padding: 50px;
+
+    color: var(--muted);
+
+    display: none;
+
+    grid-column: 1/-1;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1000px) {
+
+    .product-grid {
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .category-grid {
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+
+@media(max-width:700px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        padding: 60px 6%;
+    }
+
+    section {
+        padding: 60px 6%;
+    }
+
+    .product-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .safety-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .molecule {
+        width: 260px;
+        height: 260px;
+    }
+
+    .atom {
+        width: 55px;
+        height: 55px;
+        font-size: 20px;
+    }
+
+    .atom:nth-child(1) {
+        left: 103px;
+    }
+
+    .atom:nth-child(4) {
+        left: 103px;
+        top: 103px;
+    }
+
+    .section-title h2 {
+        font-size: 28px;
+    }
+}
+
+@media(max-width:480px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .detail-header h2 {
+        font-size: 24px;
+    }
+
+    .navbar {
+        padding: 0 4%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">🧪</div>
+        ChemLife
+    </div>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#explore">Explore</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#safety">Safety</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="nav-actions">
+        <button class="icon-btn" id="themeBtn">🌙</button>
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="home">
+
+    <div>
+
+        <div class="hero-badge">
+            CEP PROJECT • CHEMISTRY AWARENESS
+        </div>
+
+        <h1>
+            Discover the
+            <span>Chemistry</span>
+            Around You.
+        </h1>
+
+        <p>
+            Explore the chemicals present in everyday products,
+            understand their functions, chemical formulas,
+            common uses and important safety precautions.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#explore">
+                <button class="primary-btn">
+                    🔍 Explore Chemicals
+                </button>
+            </a>
+
+            <a href="#dashboard">
+                <button class="secondary-btn">
+                    📊 View Dashboard
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="molecule">
+
+        <div class="atom">O</div>
+        <div class="atom">H</div>
+        <div class="atom">C</div>
+        <div class="atom">🧪</div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard">
+
+    <div class="section-title">
+
+        <h2>📊 Chemical Dashboard</h2>
+
+        <p>
+            Quick overview of chemicals and products in our database.
+        </p>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🧪</div>
+
+            <div class="stat-number"
+                 id="chemicalCount">
+                40+
+            </div>
+
+            <div class="stat-label">
+                Chemicals Covered
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🛒</div>
+
+            <div class="stat-number">
+                25+
+            </div>
+
+            <div class="stat-label">
+                Daily Products
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">📚</div>
+
+            <div class="stat-number">
+                8
+            </div>
+
+            <div class="stat-label">
+                Categories
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">⚠️</div>
+
+            <div class="stat-number">
+                100%
+            </div>
+
+            <div class="stat-label">
+                Safety Awareness
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EXPLORE
+===================================================== -->
+
+<section id="explore">
+
+    <div class="section-title">
+
+        <h2>🔎 Explore Daily-Life Products</h2>
+
+        <p>
+            Search a product or chemical to learn more about it.
+        </p>
+
+    </div>
+
+    <div class="search-area">
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search e.g. Soap, Toothpaste, Sodium Chloride..."
+            >
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+        </div>
+
+        <div class="filters">
+
+            <button class="filter-btn active"
+                    data-category="all">
+                All
+            </button>
+
+            <button class="filter-btn"
+                    data-category="Personal Care">
+                Personal Care
+            </button>
+
+            <button class="filter-btn"
+                    data-category="Food">
+                Food
+            </button>
+
+            <button class="filter-btn"
+                    data-category="Cleaning">
+                Cleaning
+            </button>
+
+            <button class="filter-btn"
+                    data-category="Medicine">
+                Medicine
+            </button>
+
+            <button class="filter-btn"
+                    data-category="Home">
+                Home
+            </button>
+
+            <button class="filter-btn"
+                    data-category="Agriculture">
+                Agriculture
+            </button>
+
+            <button class="filter-btn"
+                    data-category="Other">
+                Other
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="product-grid" id="productGrid">
+
+        <!-- PRODUCTS GENERATED BY JAVASCRIPT -->
+
+        <div class="no-results" id="noResults">
+
+            <div style="font-size:50px;">
+                🔬
+            </div>
+
+            <h3>No chemical found</h3>
+
+            <p>
+                Try searching for another product or chemical.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
+
+<section id="categories">
+
+    <div class="section-title">
+
+        <h2>🧩 Chemical Categories</h2>
+
+        <p>
+            Explore chemicals according to their everyday applications.
+        </p>
+
+    </div>
+
+    <div class="category-grid">
+
+        <div class="category-card"
+             onclick="filterCategory('Personal Care')">
+
+            <div>🧴</div>
+            <span>Personal Care</span>
+
+        </div>
+
+        <div class="category-card"
+             onclick="filterCategory('Food')">
+
+            <div>🍔</div>
+            <span>Food</span>
+
+        </div>
+
+        <div class="category-card"
+             onclick="filterCategory('Cleaning')">
+
+            <div>🧹</div>
+            <span>Cleaning</span>
+
+        </div>
+
+        <div class="category-card"
+             onclick="filterCategory('Medicine')">
+
+            <div>💊</div>
+            <span>Medicine</span>
+
+        </div>
+
+        <div class="category-card"
+             onclick="filterCategory('Home')">
+
+            <div>🏠</div>
+            <span>Home</span>
+
+        </div>
+
+        <div class="category-card"
+             onclick="filterCategory('Agriculture')">
+
+            <div>🌱</div>
+            <span>Agriculture</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SAFETY
+===================================================== -->
+
+<section id="safety" class="safety">
+
+    <div class="section-title">
+
+        <h2>⚠️ Chemical Safety</h2>
+
+        <p>
+            Chemicals are useful when handled correctly.
+        </p>
+
+    </div>
+
+    <div class="safety-grid">
+
+        <div class="safety-card">
+
+            <div class="icon">🧤</div>
+
+            <h3>Use Protection</h3>
+
+            <p>
+                Use gloves, masks or other protective equipment
+                when handling concentrated chemicals.
+            </p>
+
+        </div>
+
+        <div class="safety-card">
+
+            <div class="icon">🏷️</div>
+
+            <h3>Read Labels</h3>
+
+            <p>
+                Always read product labels, warnings,
+                ingredients and usage instructions.
+            </p>
+
+        </div>
+
+        <div class="safety-card">
+
+            <div class="icon">🚫</div>
+
+            <h3>Never Mix Randomly</h3>
+
+            <p>
+                Never mix household cleaning chemicals unless
+                the manufacturer specifically recommends it.
+            </p>
+
+        </div>
+
+        <div class="safety-card">
+
+            <div class="icon">👶</div>
+
+            <h3>Keep Away From Children</h3>
+
+            <p>
+                Store household chemicals and medicines
+                safely away from children.
+            </p>
+
+        </div>
+
+        <div class="safety-card">
+
+            <div class="icon">🌬️</div>
+
+            <h3>Ventilation</h3>
+
+            <p>
+                Use strong cleaning products in a properly
+                ventilated area.
+            </p>
+
+        </div>
+
+        <div class="safety-card">
+
+            <div class="icon">♻️</div>
+
+            <h3>Dispose Properly</h3>
+
+            <p>
+                Dispose of chemical containers and unused
+                chemicals according to local instructions.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about">
+
+    <div class="section-title">
+
+        <h2>ℹ️ About This Project</h2>
+
+        <p>
+            Community Engagement Project
+        </p>
+
+    </div>
+
+    <div class="about-box">
+
+    <p>
+        <strong>ChemLife – Chemicals in Daily Life</strong>
+        is a Community Engagement Project developed by
+        <strong>Shivraj Phadtare</strong>, Department of
+        Artificial Intelligence and Data Science.
+    </p>
+
+    <p>
+        <strong>Student Name:</strong> 1.Shivraj Phadtare 
+        2.Pokharkar Prajwal
+        3. Patil Manoj
+        4. Pardeshi Ranveersingh
+    </p>
+
+    <p>
+        <strong>Department:</strong> Artificial Intelligence and Data Science (AIDS)
+    </p>
+
+    <p>
+        <strong>Class:</strong> S.E. AIDS – Div B
+    </p>
+
+    <p>
+        <strong>College:</strong> Jaihind College of Engineering,
+        Kuran, Tal. Junnar
+    </p>
+
+    <p>
+        <strong>Project Type:</strong> Community Engagement Project (CEP)
+    </p>
+
+    <p>
+        <strong>Project Guide:</strong> Prof. KOLASE.M.C
+    </p>
+
+    <p>
+        <strong>Academic Year:</strong> 2026–27
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>🧪 ChemLife</h3>
+
+    <p>
+        Chemicals in Daily Life • CEP Project
+    </p>
+
+    <p style="margin-top:10px;">
+        Developed by <strong>1.Shivraj Phadtare
+            2.Pokharkar Prajwal
+            3.Patil Manoj
+            4.Pardeshi Ranveersingh
+        </strong>
+    </p>
+
+    <p>
+        Department of Artificial Intelligence and Data Science
+    </p>
+
+    <p>
+        Jaihind College of Engineering, Kuran, Tal. Junnar
+    </p>
+
+    
+    <p>
+    <strong>📧 Email:</strong>
+    <a href="mailto:phadtareshiv0196@gmail.com">
+        phadtareshiv0196@gmail.com
+    </a>
+</p>
+
+<p>
+    <strong>📱 Mobile:</strong>
+    <a href="tel:+917387819975">
+        +91 7387819975
+    </a>
+</p>
+
+</footer>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div class="modal" id="chemicalModal">
+
+    <div class="modal-content">
+
+        <button class="close-modal"
+                onclick="closeModal()">
+            ×
+        </button>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =========================================================
+   CHEMICAL DATABASE
+========================================================= */
+
+const products = [
+
+{
+    name: "Soap",
+    icon: "🧼",
+    category: "Personal Care",
+    chemical: "Sodium Stearate",
+    formula: "C18H35NaO2",
+    function: "Acts as a surfactant and helps remove oil and dirt from the skin.",
+    uses: "Bathing, hand washing and general cleaning.",
+    properties: "Alkaline soap salt with cleansing and emulsifying properties.",
+    safety: "Avoid contact with eyes. Some soaps may cause skin irritation."
+},
+
+{
+    name: "Toothpaste",
+    icon: "🪥",
+    category: "Personal Care",
+    chemical: "Sodium Fluoride",
+    formula: "NaF",
+    function: "Helps strengthen tooth enamel and prevent dental cavities.",
+    uses: "Used in toothpaste and oral-care products.",
+    properties: "Fluoride compound used in controlled concentrations.",
+    safety: "Do not swallow toothpaste. Use the recommended amount."
+},
+
+{
+    name: "Shampoo",
+    icon: "🧴",
+    category: "Personal Care",
+    chemical: "Sodium Lauryl Sulfate",
+    formula: "C12H25SO4Na",
+    function: "Produces foam and helps remove oil and dirt.",
+    uses: "Hair and scalp cleaning.",
+    properties: "Anionic surfactant.",
+    safety: "May irritate sensitive skin or eyes."
+},
+
+{
+    name: "Hand Sanitizer",
+    icon: "🧴",
+    category: "Personal Care",
+    chemical: "Ethanol",
+    formula: "C2H5OH",
+    function: "Helps reduce microorganisms on hands.",
+    uses: "Hand hygiene.",
+    properties: "Volatile and flammable alcohol.",
+    safety: "Keep away from flames and avoid eye contact."
+},
+
+{
+    name: "Perfume",
+    icon: "🌸",
+    category: "Personal Care",
+    chemical: "Ethanol + Fragrance Compounds",
+    formula: "C2H5OH + Various",
+    function: "Acts as a solvent and carries fragrance compounds.",
+    uses: "Personal fragrance.",
+    properties: "Volatile and aromatic mixture.",
+    safety: "Flammable. Avoid spraying near eyes or flames."
+},
+
+{
+    name: "Deodorant",
+    icon: "🧴",
+    category: "Personal Care",
+    chemical: "Aluminum Chlorohydrate",
+    formula: "Al2(OH)5Cl",
+    function: "Helps reduce sweating in antiperspirant products.",
+    uses: "Underarm personal care.",
+    properties: "Aluminum salt used as an antiperspirant active.",
+    safety: "Use according to product instructions."
+},
+
+{
+    name: "Vinegar",
+    icon: "🥗",
+    category: "Food",
+    chemical: "Acetic Acid",
+    formula: "CH3COOH",
+    function: "Provides acidity and characteristic sour taste.",
+    uses: "Cooking, pickling and food preparation.",
+    properties: "Weak organic acid.",
+    safety: "Concentrated acetic acid can be corrosive."
+},
+
+{
+    name: "Table Salt",
+    icon: "🧂",
+    category: "Food",
+    chemical: "Sodium Chloride",
+    formula: "NaCl",
+    function: "Adds salty taste and contributes sodium and chloride ions.",
+    uses: "Food seasoning and preservation.",
+    properties: "Ionic crystalline compound.",
+    safety: "Excessive dietary sodium intake can be harmful."
+},
+
+{
+    name: "Baking Soda",
+    icon: "🥄",
+    category: "Food",
+    chemical: "Sodium Bicarbonate",
+    formula: "NaHCO3",
+    function: "Releases carbon dioxide during baking.",
+    uses: "Baking and food preparation.",
+    properties: "Mild alkaline compound.",
+    safety: "Use appropriate food-grade quantities."
+},
+
+{
+    name: "Sugar",
+    icon: "🍬",
+    category: "Food",
+    chemical: "Sucrose",
+    formula: "C12H22O11",
+    function: "Provides sweetness and energy.",
+    uses: "Food and beverages.",
+    properties: "Carbohydrate and disaccharide.",
+    safety: "Excessive consumption may contribute to health problems."
+},
+
+{
+    name: "Milk",
+    icon: "🥛",
+    category: "Food",
+    chemical: "Lactose",
+    formula: "C12H22O11",
+    function: "Natural carbohydrate present in milk.",
+    uses: "Provides energy as part of dairy foods.",
+    properties: "Disaccharide sugar.",
+    safety: "People with lactose intolerance may experience symptoms."
+},
+
+{
+    name: "Soft Drink",
+    icon: "🥤",
+    category: "Food",
+    chemical: "Carbonic Acid",
+    formula: "H2CO3",
+    function: "Forms when carbon dioxide dissolves in water.",
+    uses: "Carbonated beverages.",
+    properties: "Weak acid in equilibrium with dissolved CO2.",
+    safety: "Frequent consumption of sugary soft drinks is not recommended."
+},
+
+{
+    name: "Bread",
+    icon: "🍞",
+    category: "Food",
+    chemical: "Sodium Bicarbonate",
+    formula: "NaHCO3",
+    function: "Can act as a leavening agent in certain recipes.",
+    uses: "Food preparation.",
+    properties: "Produces carbon dioxide under suitable conditions.",
+    safety: "Food-grade material should be used."
+},
+
+{
+    name: "Detergent",
+    icon: "🧺",
+    category: "Cleaning",
+    chemical: "Linear Alkylbenzene Sulfonate",
+    formula: "LAS",
+    function: "Surfactant that helps remove dirt and grease.",
+    uses: "Laundry and household cleaning.",
+    properties: "Anionic surfactant.",
+    safety: "Avoid prolonged skin or eye contact."
+},
+
+{
+    name: "Bleach",
+    icon: "🧽",
+    category: "Cleaning",
+    chemical: "Sodium Hypochlorite",
+    formula: "NaOCl",
+    function: "Acts as a disinfectant and bleaching agent.",
+    uses: "Surface disinfection and bleaching.",
+    properties: "Strong oxidizing chemical.",
+    safety: "Never mix bleach with acids or ammonia."
+},
+
+{
+    name: "Glass Cleaner",
+    icon: "🪟",
+    category: "Cleaning",
+    chemical: "Ammonia",
+    formula: "NH3",
+    function: "Helps dissolve grease and dirt.",
+    uses: "Glass and surface cleaning.",
+    properties: "Weak base with strong odor.",
+    safety: "Use with good ventilation and never mix with bleach."
+},
+
+{
+    name: "Floor Cleaner",
+    icon: "🧹",
+    category: "Cleaning",
+    chemical: "Benzalkonium Chloride",
+    formula: "C6H5CH2N+(CH3)2RCl−",
+    function: "Used as a disinfecting and cleaning agent in some formulations.",
+    uses: "Household surface cleaning.",
+    properties: "Quaternary ammonium compound.",
+    safety: "Follow product dilution instructions."
+},
+
+{
+    name: "Dishwashing Liquid",
+    icon: "🍽️",
+    category: "Cleaning",
+    chemical: "Sodium Lauryl Ether Sulfate",
+    formula: "SLES",
+    function: "Surfactant that helps remove grease.",
+    uses: "Cleaning dishes and utensils.",
+    properties: "Foaming surfactant.",
+    safety: "Avoid eye contact and rinse dishes thoroughly."
+},
+
+{
+    name: "Antacid",
+    icon: "💊",
+    category: "Medicine",
+    chemical: "Magnesium Hydroxide",
+    formula: "Mg(OH)2",
+    function: "Neutralizes excess stomach acid.",
+    uses: "Some antacid formulations.",
+    properties: "Sparingly soluble base.",
+    safety: "Use medicines according to label or professional advice."
+},
+
+{
+    name: "Pain Relief Tablet",
+    icon: "💊",
+    category: "Medicine",
+    chemical: "Paracetamol",
+    formula: "C8H9NO2",
+    function: "Used for pain relief and fever reduction.",
+    uses: "Common analgesic and antipyretic medicine.",
+    properties: "Organic pharmaceutical compound.",
+    safety: "Do not exceed the recommended dose."
+},
+
+{
+    name: "ORS",
+    icon: "🥤",
+    category: "Medicine",
+    chemical: "Sodium Chloride + Glucose",
+    formula: "NaCl + C6H12O6",
+    function: "Helps replace water and electrolytes.",
+    uses: "Oral rehydration.",
+    properties: "Electrolyte and carbohydrate solution.",
+    safety: "Prepare according to the package instructions."
+},
+
+{
+    name: "Antiseptic",
+    icon: "🧴",
+    category: "Medicine",
+    chemical: "Povidone-Iodine",
+    formula: "PVP-I",
+    function: "Used to reduce microorganisms on skin.",
+    uses: "Skin antisepsis.",
+    properties: "Iodine-containing antiseptic complex.",
+    safety: "Use externally according to product instructions."
+},
+
+{
+    name: "Mosquito Repellent",
+    icon: "🦟",
+    category: "Home",
+    chemical: "DEET",
+    formula: "C12H17NO",
+    function: "Repels mosquitoes and other biting insects.",
+    uses: "Personal insect protection.",
+    properties: "Insect repellent compound.",
+    safety: "Follow label instructions and avoid eyes and mouth."
+},
+
+{
+    name: "Insect Spray",
+    icon: "🐜",
+    category: "Home",
+    chemical: "Pyrethroids",
+    formula: "Varies",
+    function: "Affects insect nervous systems.",
+    uses: "Household pest control.",
+    properties: "Synthetic insecticide group.",
+    safety: "Use only as directed and avoid unnecessary exposure."
+},
+
+{
+    name: "Fertilizer",
+    icon: "🌱",
+    category: "Agriculture",
+    chemical: "Ammonium Nitrate",
+    formula: "NH4NO3",
+    function: "Provides nitrogen to plants.",
+    uses: "Agricultural fertilizer.",
+    properties: "Nitrogen-containing ionic compound.",
+    safety: "Store and use strictly according to regulations."
+},
+
+{
+    name: "Urea Fertilizer",
+    icon: "🌾",
+    category: "Agriculture",
+    chemical: "Urea",
+    formula: "CH4N2O",
+    function: "Provides nitrogen to plants.",
+    uses: "Agricultural fertilizer.",
+    properties: "Highly concentrated nitrogen fertilizer.",
+    safety: "Apply according to agricultural recommendations."
+},
+
+{
+    name: "Pencil Graphite",
+    icon: "✏️",
+    category: "Other",
+    chemical: "Carbon",
+    formula: "C",
+    function: "Creates the writing mark in pencils.",
+    uses: "Writing and drawing.",
+    properties: "Layered allotrope of carbon.",
+    safety: "Generally safe for normal writing use."
+},
+
+{
+    name: "Battery",
+    icon: "🔋",
+    category: "Other",
+    chemical: "Lithium Compounds",
+    formula: "Varies",
+    function: "Participates in electrochemical energy storage.",
+    uses: "Electronic devices and energy storage.",
+    properties: "Electrochemical system.",
+    safety: "Do not puncture, crush or improperly dispose of batteries."
+},
+
+{
+    name: "Chalk",
+    icon: "🧱",
+    category: "Other",
+    chemical: "Calcium Carbonate",
+    formula: "CaCO3",
+    function: "Provides a hard mineral material.",
+    uses: "Writing chalk and construction materials.",
+    properties: "Insoluble carbonate mineral.",
+    safety: "Avoid inhaling excessive dust."
+},
+
+{
+    name: "Toilet Cleaner",
+    icon: "🚽",
+    category: "Cleaning",
+    chemical: "Hydrochloric Acid",
+    formula: "HCl",
+    function: "Helps dissolve mineral deposits and stains.",
+    uses: "Toilet and bathroom cleaning.",
+    properties: "Strong acid.",
+    safety: "Corrosive. Never mix with bleach."
+},
+
+{
+    name: "Laundry Bleach",
+    icon: "👕",
+    category: "Cleaning",
+    chemical: "Hydrogen Peroxide",
+    formula: "H2O2",
+    function: "Acts as an oxidizing and bleaching agent.",
+    uses: "Some laundry and cleaning products.",
+    properties: "Oxidizing compound.",
+    safety: "Use only at the recommended concentration."
+}
+
+];
+
+
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
+
+const productGrid =
+    document.getElementById("productGrid");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const noResults =
+    document.getElementById("noResults");
+
+const modal =
+    document.getElementById("chemicalModal");
+
+const modalContent =
+    document.getElementById("modalContent");
+
+let currentCategory = "all";
+
+
+/* =========================================================
+   DISPLAY PRODUCTS
+========================================================= */
+
+function displayProducts() {
+
+    const search =
+        searchInput.value.toLowerCase().trim();
+
+    const filtered =
+        products.filter(product => {
+
+            const matchesSearch =
+                product.name.toLowerCase().includes(search) ||
+                product.chemical.toLowerCase().includes(search) ||
+                product.formula.toLowerCase().includes(search) ||
+                product.category.toLowerCase().includes(search);
+
+            const matchesCategory =
+                currentCategory === "all" ||
+                product.category === currentCategory;
+
+            return matchesSearch && matchesCategory;
+
+        });
+
+
+    productGrid.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        productGrid.appendChild(noResults);
+
+        noResults.style.display = "block";
+
+        return;
+
+    }
+
+
+    noResults.style.display = "none";
+
+
+    filtered.forEach((product, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "product-card";
+
+        card.innerHTML = `
+
+            <div class="product-top">
+                ${product.icon}
+            </div>
+
+            <div class="product-info">
+
+                <span class="category">
+                    ${product.category}
+                </span>
+
+                <h3>
+                    ${product.name}
+                </h3>
+
+                <p>
+                    ${product.function}
+                </p>
+
+                <div class="formula">
+                    ${product.formula}
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showDetails(${products.indexOf(product)})">
+
+                    View Chemical Details →
+
+                </button>
+
+            </div>
+
+        `;
+
+        productGrid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    displayProducts
+);
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
+
+document.querySelectorAll(".filter-btn")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document
+        .querySelectorAll(".filter-btn")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        currentCategory =
+            button.dataset.category;
+
+        displayProducts();
+
+    });
+
+});
+
+
+function filterCategory(category) {
+
+    currentCategory = category;
+
+    document
+    .querySelectorAll(".filter-btn")
+    .forEach(btn => {
+
+        btn.classList.remove("active");
+
+        if (btn.dataset.category === category) {
+            btn.classList.add("active");
+        }
+
+    });
+
+    document
+    .getElementById("explore")
+    .scrollIntoView({
+        behavior: "smooth"
+    });
+
+    displayProducts();
+}
+
+
+/* =========================================================
+   CHEMICAL DETAILS
+========================================================= */
+
+function showDetails(index) {
+
+    const product =
+        products[index];
+
+    modalContent.innerHTML = `
+
+        <div class="detail-header">
+
+            <div class="detail-icon">
+                ${product.icon}
+            </div>
+
+            <div>
+
+                <span class="category">
+                    ${product.category}
+                </span>
+
+                <h2>
+                    ${product.name}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="detail-section">
+
+            <h4>
+                🧪 Main Chemical
+            </h4>
+
+            <p>
+                <strong>
+                    ${product.chemical}
+                </strong>
+            </p>
+
+        </div>
+
+
+        <div class="detail-section">
+
+            <h4>
+                ⚗️ Chemical Formula
+            </h4>
+
+            <p>
+                <strong>
+                    ${product.formula}
+                </strong>
+            </p>
+
+        </div>
+
+
+        <div class="detail-section">
+
+            <h4>
+                🔬 Function
+            </h4>
+
+            <p>
+                ${product.function}
+            </p>
+
+        </div>
+
+
+        <div class="detail-section">
+
+            <h4>
+                📍 Common Uses
+            </h4>
+
+            <p>
+                ${product.uses}
+            </p>
+
+        </div>
+
+
+        <div class="detail-section">
+
+            <h4>
+                📚 Properties
+            </h4>
+
+            <p>
+                ${product.properties}
+            </p>
+
+        </div>
+
+
+        <div class="detail-section">
+
+            <h4>
+                ⚠️ Safety Information
+            </h4>
+
+            <p>
+                ${product.safety}
+            </p>
+
+        </div>
+
+    `;
+
+    modal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    modal.classList.remove("show");
+
+    document.body.style.overflow = "";
+
+}
+
+
+modal.addEventListener("click", event => {
+
+    if (event.target === modal) {
+        closeModal();
+    }
+
+});
+
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+        closeModal();
+    }
+
+});
+
+
+/* =========================================================
+   DARK / LIGHT MODE
+========================================================= */
+
+const themeBtn =
+    document.getElementById("themeBtn");
+
+
+const savedTheme =
+    localStorage.getItem("chemlife-theme");
+
+
+if (savedTheme === "dark") {
+
+    document.body.classList.add("dark");
+
+    themeBtn.textContent = "☀️";
+
+}
+
+
+themeBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark");
+
+    const dark =
+        document.body.classList.contains("dark");
+
+    themeBtn.textContent =
+        dark ? "☀️" : "🌙";
+
+    localStorage.setItem(
+        "chemlife-theme",
+        dark ? "dark" : "light"
+    );
+
+});
+
+
+/* =========================================================
+   ANIMATED COUNTER
+========================================================= */
+
+function animateCounter(
+    element,
+    target
+) {
+
+    let current = 0;
+
+    const increment =
+        target / 50;
+
+    const timer =
+        setInterval(() => {
+
+            current += increment;
+
+            if (current >= target) {
+
+                current = target;
+
+                clearInterval(timer);
+
+            }
+
+            element.textContent =
+                Math.floor(current) + "+";
+
+        }, 25);
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+displayProducts();
+
+
+/* Update chemical count */
+
+const uniqueChemicals =
+    new Set(
+        products.map(
+            p => p.chemical
+        )
+    ).size;
+
+document.getElementById(
+    "chemicalCount"
+).textContent =
+    uniqueChemicals + "+";
+
+
+</script>
+
+</body>
+</html>
